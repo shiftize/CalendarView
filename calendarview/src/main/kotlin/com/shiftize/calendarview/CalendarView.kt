@@ -1,9 +1,16 @@
 package com.shiftize.calendarview
 
 import android.content.Context
-import android.view.View
+import android.support.v4.view.ViewPager
+import android.util.AttributeSet
 
-/**
- * Created by takuma on 2016/02/04.
- */
-class CalendarView(context: Context) : View(context)
+class CalendarView : ViewPager {
+    constructor(context: Context): super(context) {}
+    constructor(context: Context, attrs: AttributeSet): super(context, attrs) {}
+
+    fun setUp() {
+        val panelAdapter = CalendarPanelAdapter(context, 2016, 2)
+        this.adapter = panelAdapter
+        this.currentItem = panelAdapter.count / 2
+    }
+}
