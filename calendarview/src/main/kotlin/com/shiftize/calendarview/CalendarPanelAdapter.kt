@@ -12,10 +12,10 @@ class CalendarPanelAdapter(val context: Context, val initYear: Int, val initMont
         calendar.set(Calendar.YEAR, initYear)
         calendar.set(Calendar.MONTH, initMonth - 1)
         calendar.add(Calendar.MONTH, position - (count / 2))
-        val calendarView = CalendarPanel(context)
-        calendarView.update(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1)
-        container.addView(calendarView)
-        return calendarView
+        val calendarPanel = CalendarPanel(context)
+        calendarPanel.setUp(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1)
+        container.addView(calendarPanel)
+        return calendarPanel
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {

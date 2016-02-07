@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.textView);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        calendarView.setOnMonthChangedlistener(new Function2<Integer, Integer, Unit>() {
+        calendarView.setOnSwipedListener(new Function2<Integer, Integer, Unit>() {
             @Override
             public Unit invoke(Integer year, Integer month) {
                 textView.setText(year + " / " + month);
@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         calendarView.setUp();
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

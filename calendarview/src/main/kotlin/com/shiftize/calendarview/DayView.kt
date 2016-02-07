@@ -6,14 +6,25 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class DayView(context: Context) : LinearLayout(context) {
-    var day: Int = 1
+class DayView : LinearLayout {
+    var dayText: TextView? = null
+    var day: Int? = 1
+        set(value) {
+            dayText?.text = value.toString()
+        }
     var color: Int = Color.rgb(0, 0, 0)
+        set(value) {
+            dayText?.setTextColor(value)
+        }
+
+    constructor(context: Context): super(context) {
+        setUp()
+    }
 
     fun setUp(): DayView {
-        val dayText: TextView = TextView(context)
-        dayText.text = day.toString()
-        dayText.setTextColor(color)
+        dayText = TextView(context)
+        dayText?.text = day.toString()
+        dayText?.setTextColor(color)
 
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         params.weight = 1.0f
