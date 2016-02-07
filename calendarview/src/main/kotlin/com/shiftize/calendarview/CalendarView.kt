@@ -6,20 +6,41 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import java.util.*
 
 class CalendarView : LinearLayout {
+    var onMonthChangedlistener: (Int, Int) -> Unit = {year, month -> }
+    var yearMonthText: TextView? = null
+
+    var isDateShowed: Boolean = true
+
     constructor(context: Context): super(context) {}
     constructor(context: Context, attrs: AttributeSet): super(context, attrs) {}
 
     fun setUp() {
+        val calendar = Calendar.getInstance()
+        setUp(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1)
+    }
+
+    fun setUp(year: Int, month: Int) {
         this.orientation = VERTICAL
+        if (isDateShowed) {
+            this.addView(initYearMonthText())
+            yearMonthText?.text = "$year / $month"
+        }
         this.addView(generateWeekNamesContainer())
         val calendarPanelPager = CalendarPanelPager(context)
-        calendarPanelPager.setUp()
+        calendarPanelPager.onMonthChangedListener = onMonthChangedlistener
+        if (isDateShowed) {
+            calendarPanelPager.internalMonthChangedListener = { year, month ->
+                yearMonthText?.text = "$year / $month"
+            }
+        }
+        calendarPanelPager.setUp(year, month)
         this.addView(calendarPanelPager)
     }
 
-    fun generateWeekNamesContainer(): LinearLayout {
+    private fun generateWeekNamesContainer(): LinearLayout {
         val container = LinearLayout(context)
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         container.layoutParams = params
@@ -31,7 +52,7 @@ class CalendarView : LinearLayout {
         return container
     }
 
-    fun generateWeekText(name: String): LinearLayout {
+    private fun generateWeekText(name: String): LinearLayout {
         val weekText = TextView(context)
         weekText.text = name
         weekText.setTextColor(Color.rgb(0, 0, 0))
@@ -44,6 +65,20 @@ class CalendarView : LinearLayout {
         container.setGravity(Gravity.CENTER)
         container.layoutParams = params
         container.addView(weekText)
+        return container
+    }
+
+    private fun initYearMonthText(): LinearLayout {
+        yearMonthText = TextView(context)
+        yearMonthText?.setTextColor(Color.rgb(0, 0, 0))
+
+        val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        params.gravity = Gravity.CENTER
+
+        val container: LinearLayout = LinearLayout(context)
+        container.setGravity(Gravity.CENTER)
+        container.layoutParams = params
+        container.addView(yearMonthText)
         return container
     }
 }

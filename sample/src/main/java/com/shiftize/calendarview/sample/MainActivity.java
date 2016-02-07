@@ -8,9 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.shiftize.calendarview.CalendarPanel;
 import com.shiftize.calendarview.CalendarView;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +25,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final TextView textView = (TextView) findViewById(R.id.textView);
+
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
+        calendarView.setOnMonthChangedlistener(new Function2<Integer, Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer year, Integer month) {
+                textView.setText(year + " / " + month);
+                return null;
+            }
+        });
         calendarView.setUp();
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
