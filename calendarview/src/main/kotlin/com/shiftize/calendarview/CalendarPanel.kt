@@ -47,7 +47,6 @@ class CalendarPanel : LinearLayout {
         calendar.set(Calendar.MONTH, month - 1)
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.add(Calendar.DAY_OF_MONTH, 1 - calendar.get(Calendar.DAY_OF_WEEK))
-        this.addView(generateWeekNamesContainer())
         (0..WEEKS_IN_A_MONTH - 1).forEach {
             val weekContainer = generateWeekContainer()
             (0..DAYS_IN_A_WEEK - 1).forEach {
@@ -74,34 +73,4 @@ class CalendarPanel : LinearLayout {
         dayView.color = Color.rgb(0, 0, 0)
         return dayView.setUp()
     }
-
-    fun generateWeekNamesContainer(): LinearLayout {
-        val container = LinearLayout(context)
-        val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        params.weight = 1.0f
-        container.layoutParams = params
-        listOf("Sun", "Mon", "Tus",
-                "Wed", "thu", "Fri", "Sat"
-        ).forEach {
-            container.addView(generateWeekText(it))
-        }
-        return container
-    }
-
-    fun generateWeekText(name: String): LinearLayout {
-        val weekText = TextView(context)
-        weekText.text = name
-        weekText.setTextColor(Color.rgb(0, 0, 0))
-
-        val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        params.weight = 1.0f
-        params.gravity = Gravity.LEFT
-
-        val container: LinearLayout = LinearLayout(context)
-        container.setGravity(Gravity.CENTER)
-        container.layoutParams = params
-        container.addView(weekText)
-        return container
-    }
-
 }
