@@ -13,26 +13,21 @@ import java.util.*
 class CalendarView : LinearLayout {
     var onSwipedListener: (Int, Int) -> Unit = {year, month -> }
 
-    private var topTextContainer: LinearLayout? = null
     private var topText: TextView? = null
     var isTopTextShowed: Boolean = true
         set(value) {
-            if (!value) {
-                this.removeView(topTextContainer)
-            } else {
-                topTextContainer = generateTopTextContainer()
-                this.addView(topTextContainer, 0)
-            }
-            isTopTextShowed = value
+            topText?.visibility = if (value) VISIBLE else INVISIBLE
         }
 
+    private var weekNamesContainer: LinearLayout? = null
     var weekNames: List<String> = listOf(
         "Sun", "Mon", "Tue", "Wed",
         "Thu", "Fri", "Sat"
     )
         set(value) {
             if (value.size == 7) {
-                weekNames = value
+                weekNamesContainer?.removeAllViews()
+                insertWeekNamesToContainer(value, weekNamesContainer)
             }
         }
 
@@ -43,22 +38,21 @@ class CalendarView : LinearLayout {
         setUp()
     }
 
-    fun setUp() {
+    private fun setUp() {
         val calendar = Calendar.getInstance()
         setUp(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1)
     }
 
-    fun setUp(year: Int, month: Int) {
+    private fun setUp(year: Int, month: Int) {
         this.orientation = VERTICAL
 
         topText = TextView(context)
-        if (isTopTextShowed) {
-            topTextContainer = generateTopTextContainer()
-            this.addView(topTextContainer)
-            topText?.text = "$year / $month"
-        }
+        topText?.text = "$year / $month"
+        this.addView(generateTopTextContainer(topText))
 
-        this.addView(generateWeekNamesContainer())
+        weekNamesContainer = LinearLayout(context)
+        insertWeekNamesToContainer(weekNames, weekNamesContainer)
+        this.addView(weekNamesContainer)
 
         val calendarPanelPager = CalendarPanelPager(context)
         calendarPanelPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
@@ -81,14 +75,12 @@ class CalendarView : LinearLayout {
         this.addView(calendarPanelPager)
     }
 
-    private fun generateWeekNamesContainer(): LinearLayout {
-        val container = LinearLayout(context)
+    private fun insertWeekNamesToContainer(weekNames: List<String>, container: LinearLayout?) {
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        container.layoutParams = params
+        container?.layoutParams = params
         weekNames.forEach {
-            container.addView(generateWeekText(it))
+            container?.addView(generateWeekText(it))
         }
-        return container
     }
 
     private fun generateWeekText(name: String): LinearLayout {
@@ -107,9 +99,9 @@ class CalendarView : LinearLayout {
         return container
     }
 
-    private fun generateTopTextContainer(): LinearLayout {
-        topText?.textSize = 20.0f
-        topText?.setTextColor(Color.rgb(0, 0, 0))
+    private fun generateTopTextContainer(textView: TextView?): LinearLayout {
+        textView?.textSize = 20.0f
+        textView?.setTextColor(Color.rgb(0, 0, 0))
 
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         params.gravity = Gravity.CENTER
@@ -117,7 +109,7 @@ class CalendarView : LinearLayout {
         val container: LinearLayout = LinearLayout(context)
         container.setGravity(Gravity.CENTER)
         container.layoutParams = params
-        container.addView(topText)
+        container.addView(textView)
         return container
     }
 }

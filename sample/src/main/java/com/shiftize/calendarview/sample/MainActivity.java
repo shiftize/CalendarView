@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.shiftize.calendarview.CalendarPanel;
 import com.shiftize.calendarview.CalendarView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
@@ -35,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
-        calendarView.setUp();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
