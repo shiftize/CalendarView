@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -12,6 +11,8 @@ import java.util.*
 
 class CalendarView : LinearLayout {
     var onSwipedListener: (Int, Int) -> Unit = {year, month -> }
+
+    private var calendarPanelPager: CalendarPanelPager? = null
 
     private var topText: TextView? = null
     var isTopTextShowed: Boolean = true
@@ -29,6 +30,11 @@ class CalendarView : LinearLayout {
                 weekNamesContainer?.removeAllViews()
                 insertWeekNamesToContainer(value, weekNamesContainer)
             }
+        }
+
+    var agendaList: List<Agenda> = ArrayList()
+        set(value) {
+            calendarPanelPager?.agendaList = value
         }
 
     constructor(context: Context): super(context) {
@@ -54,15 +60,15 @@ class CalendarView : LinearLayout {
         insertWeekNamesToContainer(weekNames, weekNamesContainer)
         this.addView(weekNamesContainer)
 
-        val calendarPanelPager = CalendarPanelPager(context)
-        calendarPanelPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+        calendarPanelPager = CalendarPanelPager(context)
+        calendarPanelPager?.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int,  positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
                 val calendar = Calendar.getInstance()
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, month - 1)
-                calendar.add(Calendar.MONTH, position - calendarPanelPager.getCenterPosition())
+                calendar.add(Calendar.MONTH, position - calendarPanelPager!!.getCenterPosition())
                 val nextYear = calendar.get(Calendar.YEAR)
                 val nextMonth = calendar.get(Calendar.MONTH) + 1
                 topText?.text = "$nextYear / $nextMonth"
@@ -71,7 +77,7 @@ class CalendarView : LinearLayout {
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
-        calendarPanelPager.setUp(year, month)
+        calendarPanelPager?.setUp(year, month)
         this.addView(calendarPanelPager)
     }
 

@@ -5,6 +5,12 @@ import android.support.v4.view.ViewPager
 import java.util.*
 
 class CalendarPanelPager : ViewPager {
+    var agendaList: List<Agenda> = ArrayList()
+        set(value) {
+            (this.adapter as CalendarPanelAdapter).agendaList = value
+            this.adapter.notifyDataSetChanged()
+        }
+
     constructor(context: Context): super(context) {}
 
     fun setUp() {

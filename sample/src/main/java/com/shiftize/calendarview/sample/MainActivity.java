@@ -1,5 +1,6 @@
 package com.shiftize.calendarview.sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.shiftize.calendarview.Agenda;
 import com.shiftize.calendarview.CalendarPanel;
 import com.shiftize.calendarview.CalendarView;
 
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
+        List<Agenda> agendaList = new ArrayList<>();
+        Agenda agenda1 = new Agenda(2016, 2, 3, Color.rgb(255, 0, 0));
+        Agenda agenda2 = new Agenda(2016, 2, 3, Color.rgb(0, 255, 0));
+        Agenda agenda3 = new Agenda(2016, 2, 5, Color.rgb(0, 0, 255));
+        agendaList.add(agenda1);
+        agendaList.add(agenda2);
+        agendaList.add(agenda3);
+        calendarView.setAgendaList(agendaList);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
