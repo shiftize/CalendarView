@@ -35,18 +35,16 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.textView);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        calendarView.setOnSwipedListener(new Function2<Integer, Integer, Unit>() {
+        calendarView.setOnSwipedListener(new CalendarView.OnCalendarSwipedListener() {
             @Override
-            public Unit invoke(Integer year, Integer month) {
-                textView.setText(year + " / " + month);
-                return null;
+            public void onCalendarSwiped(int year, int month) {
+                textView.setText(year + "/" + month);
             }
         });
-        calendarView.setOnDayClickedListener(new Function3<Integer, Integer, Integer, Unit>() {
+        calendarView.setOnDayClickedListener(new CalendarView.OnCalendarClcikedListener() {
             @Override
-            public Unit invoke(Integer year, Integer month, Integer day) {
+            public void onCalendarClicked(int year, int month, int day) {
                 Log.i("clicked", year + "/" + month + "/" + day);
-                return null;
             }
         });
         List<Agenda> agendaList = new ArrayList<>();
