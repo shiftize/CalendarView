@@ -38,7 +38,7 @@ class DayView : RelativeLayout {
         dayText?.textSize = 20.0f
         dayText?.setTextColor(textColor)
         val textLayoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_START)
+        textLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
         this.addView(dayText, textLayoutParams)
 
         dotContainer = LinearLayout(context)
