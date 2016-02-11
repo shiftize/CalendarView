@@ -2,9 +2,12 @@ package com.shiftize.calendarview
 
 import android.content.Context
 import android.support.v4.view.ViewPager
+import android.util.Log
 import java.util.*
 
 class CalendarPanelPager : ViewPager {
+    var onDayClickedListener: (Int, Int, Int) -> Unit = {year, month, day -> }
+
     var agendaList: List<Agenda> = ArrayList()
         set(value) {
             (this.adapter as CalendarPanelAdapter).agendaList = value
@@ -20,6 +23,7 @@ class CalendarPanelPager : ViewPager {
 
     fun setUp(year: Int, month: Int) {
         this.adapter = CalendarPanelAdapter(context, year, month)
+        (this.adapter as CalendarPanelAdapter).onDayClickedListener = onDayClickedListener
         this.currentItem = getCenterPosition()
     }
 

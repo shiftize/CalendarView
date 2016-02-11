@@ -2,11 +2,14 @@ package com.shiftize.calendarview
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import java.util.*
 
 class CalendarPanelAdapter(val context: Context, val initYear: Int, val initMonth: Int) : PagerAdapter() {
+    var onDayClickedListener: (Int, Int, Int) -> Unit = {year, month, day -> }
+
     var agendaList: List<Agenda> = ArrayList()
 
     override fun instantiateItem(container: ViewGroup, position: Int): CalendarPanel {
@@ -19,6 +22,7 @@ class CalendarPanelAdapter(val context: Context, val initYear: Int, val initMont
         val calendarPanel = CalendarPanel(context)
         val filteredAgendaList = agendaList.filter { it.year == year
                 && month - 1 <= it.month && it.month <= month + 1}
+        calendarPanel.onDayClickedListener = onDayClickedListener
         calendarPanel.setUp(year, month, filteredAgendaList)
         container.addView(calendarPanel)
         return calendarPanel

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -11,6 +12,7 @@ import java.util.*
 
 class CalendarView : LinearLayout {
     var onSwipedListener: (Int, Int) -> Unit = {year, month -> }
+    var onDayClickedListener: (Int, Int, Int) -> Unit = {year, month, day -> }
 
     private var calendarPanelPager: CalendarPanelPager? = null
 
@@ -77,6 +79,7 @@ class CalendarView : LinearLayout {
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
+        calendarPanelPager?.onDayClickedListener = { year, month, day -> onDayClickedListener.invoke(year, month, day) }
         calendarPanelPager?.setUp(year, month)
         this.addView(calendarPanelPager)
     }
