@@ -32,16 +32,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final TextView textView = (TextView) findViewById(R.id.textView);
-
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        calendarView.setOnSwipedListener(new CalendarView.OnCalendarSwipedListener() {
+        calendarView.setOnCalendarSwipedListener(new CalendarView.OnCalendarSwipedListener() {
             @Override
             public void onCalendarSwiped(int year, int month) {
-                textView.setText(year + "/" + month);
+                Log.i("swiped", year + "/" + month);
             }
         });
-        calendarView.setOnDayClickedListener(new CalendarView.OnCalendarClcikedListener() {
+        calendarView.setOnCalendarClickedListener(new CalendarView.OnCalendarClickedListener() {
             @Override
             public void onCalendarClicked(int year, int month, int day) {
                 Log.i("clicked", year + "/" + month + "/" + day);
