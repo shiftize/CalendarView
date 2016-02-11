@@ -48,12 +48,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         List<Agenda> agendaList = new ArrayList<>();
-        Agenda agenda1 = new Agenda(2016, 2, 3, Color.rgb(255, 0, 0));
-        Agenda agenda2 = new Agenda(2016, 2, 3, Color.rgb(0, 255, 0));
-        Agenda agenda3 = new Agenda(2016, 2, 5, Color.rgb(0, 0, 255));
+        Agenda agenda1 = new Agenda(2016, 2, 3, Color.parseColor("#E74C3C"));
+        Agenda agenda2 = new Agenda(2016, 2, 3, Color.parseColor("#3498DB"));
+        Agenda agenda3 = new Agenda(2016, 2, 5, Color.parseColor("#1ABC9D"));
+        Agenda agenda4 = new Agenda(2016, 2, 7, Color.parseColor("#E74C3C"));
+        Agenda agenda5 = new Agenda(2016, 2, 7, Color.parseColor("#3498DB"));
+        Agenda agenda6 = new Agenda(2016, 2, 7, Color.parseColor("#1ABC9D"));
         agendaList.add(agenda1);
         agendaList.add(agenda2);
         agendaList.add(agenda3);
+        agendaList.add(agenda4);
+        agendaList.add(agenda5);
+        agendaList.add(agenda6);
         calendarView.setAgendaList(agendaList);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

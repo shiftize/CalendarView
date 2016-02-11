@@ -52,10 +52,8 @@ class DayView : RelativeLayout {
 
     private fun setDotViews(agendaList: List<Agenda>) {
         dotContainer?.removeAllViews()
-        agendaList.forEach {
-            val dotView = DotView(context)
-            dotView.dotColor = it.color
-            dotContainer?.addView(dotView)
-        }
+        val dotView = DotView(context)
+        dotView.agendaList = agendaList
+        dotContainer?.addView(dotView)
     }
 }
