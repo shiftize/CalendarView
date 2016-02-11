@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import java.util.*
@@ -28,6 +29,7 @@ class CalendarPanel : LinearLayout {
         calendar.set(Calendar.MONTH, month - 1)
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.add(Calendar.DAY_OF_MONTH, 1 - calendar.get(Calendar.DAY_OF_WEEK))
+        this.addView(generateBorder())
         (0..WEEKS_IN_A_MONTH - 1).forEach {
             val weekContainer = generateWeekContainer()
             (0..DAYS_IN_A_WEEK - 1).forEach {
@@ -50,6 +52,7 @@ class CalendarPanel : LinearLayout {
                 calendar.add(Calendar.DAY_OF_MONTH, 1)
             }
             this.addView(weekContainer)
+            this.addView(generateBorder())
         }
     }
 
@@ -61,5 +64,13 @@ class CalendarPanel : LinearLayout {
         params.weight = 1.0f
         container.layoutParams = params
         return container
+    }
+
+    private fun generateBorder(): View {
+        val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1)
+        val border = View(context)
+        border.layoutParams = params
+        border.setBackgroundColor(Color.parseColor(context.getString(R.color.border_color)))
+        return border
     }
 }

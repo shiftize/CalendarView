@@ -4,4 +4,5 @@
     <color name="outside_day_text">#BDC3C7</color>
     <color name="saturday_text">#3498DB</color>
     <color name="holiday_text">#E74C3C</color>
+    <color name="border_color">#34495E</color>
 </resources>
