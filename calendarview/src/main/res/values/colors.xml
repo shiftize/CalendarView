@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="day_clicked_color">#95A5A6</color>
+    <color name="outside_day_text">#BDC3C7</color>
+    <color name="saturday_text">#3498DB</color>
+    <color name="holiday_text">#E74C3C</color>
 </resources>

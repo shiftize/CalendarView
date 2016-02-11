@@ -1,6 +1,7 @@
 package com.shiftize.calendarview
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
@@ -35,6 +36,13 @@ class CalendarPanel : LinearLayout {
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
                 val filteredAgendaList = agendaList.filter { it.month == currentMonth && it.day == day }
                 dayView.day = day
+                if (currentMonth != month) {
+                    dayView.textColor = Color.parseColor(context.getString(R.color.outside_day_text))
+                } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+                    dayView.textColor = Color.parseColor(context.getString(R.color.saturday_text))
+                } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                    dayView.textColor = Color.parseColor(context.getString(R.color.holiday_text))
+                }
                 dayView.agendaList = filteredAgendaList
                 dayView.setBackgroundResource(R.drawable.day_background)
                 dayView.setOnClickListener { onDayClickedListener.invoke(year, currentMonth, day) }

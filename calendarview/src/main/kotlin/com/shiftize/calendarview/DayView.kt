@@ -15,7 +15,7 @@ class DayView : RelativeLayout {
         set(value) {
             dayText?.text = value.toString()
         }
-    var color: Int = Color.rgb(0, 0, 0)
+    var textColor: Int = Color.rgb(0, 0, 0)
         set(value) {
             dayText?.setTextColor(value)
         }
@@ -35,7 +35,8 @@ class DayView : RelativeLayout {
 
         dayText = TextView(context)
         dayText?.text = day.toString()
-        dayText?.setTextColor(color)
+        dayText?.textSize = 20.0f
+        dayText?.setTextColor(textColor)
         val textLayoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_START)
         this.addView(dayText, textLayoutParams)
