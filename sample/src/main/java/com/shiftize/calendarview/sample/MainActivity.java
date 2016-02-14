@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
+        final CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
         calendarView.setOnCalendarSwipedListener(new CalendarView.OnCalendarSwipedListener() {
             @Override
             public void onCalendarSwiped(int year, int month) {
@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                calendarView.moveTo(2017, 3);
             }
         });
     }

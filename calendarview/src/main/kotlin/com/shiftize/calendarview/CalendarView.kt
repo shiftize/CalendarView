@@ -38,6 +38,9 @@ class CalendarView : LinearLayout {
             calendarPanelPager?.agendaList = value
         }
 
+    private var initYear: Int = 0
+    private var initMonth: Int = 0
+
     constructor(context: Context): super(context) {
         setUp()
     }
@@ -51,6 +54,9 @@ class CalendarView : LinearLayout {
     }
 
     private fun setUp(year: Int, month: Int) {
+        initYear = year
+        initMonth = month
+
         this.orientation = VERTICAL
 
         topText = TextView(context)
@@ -118,6 +124,14 @@ class CalendarView : LinearLayout {
         container.layoutParams = params
         container.addView(textView)
         return container
+    }
+
+    fun moveTo(year: Int, month: Int) {
+        val centerPos = calendarPanelPager?.getCenterPosition()
+        val nextPos = centerPos?.plus((year - initYear) * 12 + month - initMonth)
+        if (nextPos != null) {
+            calendarPanelPager?.setCurrentItem(nextPos, true)
+        }
     }
 
     fun setOnCalendarSwipedListener(listener: OnCalendarSwipedListener) {
