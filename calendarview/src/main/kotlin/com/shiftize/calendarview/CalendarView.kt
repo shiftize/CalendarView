@@ -126,6 +126,11 @@ class CalendarView : LinearLayout {
         return container
     }
 
+    /**
+     * move calendar to the specified page
+     * @param year specified year
+     * @param month specified month
+     */
     fun moveTo(year: Int, month: Int) {
         val centerPos = calendarPanelPager?.getCenterPosition()
         val nextPos = centerPos?.plus((year - initYear) * 12 + month - initMonth)
@@ -134,10 +139,18 @@ class CalendarView : LinearLayout {
         }
     }
 
+    /**
+     * set OnCalendarSwipedListener
+     * @param listener OnCalendarSwipedListener
+     */
     fun setOnCalendarSwipedListener(listener: OnCalendarSwipedListener) {
         calendarListeners.onCalendarSwipedListener = listener
     }
 
+    /**
+     * set OnCalendarClickedListener
+     * @param listener OnCalendarClickedListener
+     */
     fun setOnCalendarClickedListener(listener: OnCalendarClickedListener) {
         calendarListeners.onCalendarClickedListener = listener
     }

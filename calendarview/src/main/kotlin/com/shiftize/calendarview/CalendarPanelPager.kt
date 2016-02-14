@@ -24,6 +24,10 @@ class CalendarPanelPager : ViewPager {
         this.currentItem = getCenterPosition()
     }
 
+    /**
+     * calculate center position
+     * @return calculated center position
+     */
     fun getCenterPosition(): Int {
         return this.adapter.count / 2
     }

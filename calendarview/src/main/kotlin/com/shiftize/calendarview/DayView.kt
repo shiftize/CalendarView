@@ -30,6 +30,9 @@ class DayView : RelativeLayout {
         setUp()
     }
 
+    /**
+     * set up DayView
+     */
     fun setUp() {
         removeAllViews()
 
