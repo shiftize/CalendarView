@@ -13,7 +13,7 @@ class CalendarPanel : LinearLayout {
     val DAYS_IN_A_WEEK = 7
     val WEEKS_IN_A_MONTH = 5
 
-    private val calendarData = CalendarListeners
+    var onCalendarClickedListener: CalendarView.OnCalendarClickedListener? = null
 
     constructor(context: Context): super(context)
     constructor(context: Context, attrs: AttributeSet): super(context, attrs)
@@ -48,7 +48,7 @@ class CalendarPanel : LinearLayout {
                 dayView.agendaList = filteredAgendaList
                 dayView.setBackgroundResource(R.drawable.day_background)
                 dayView.setOnClickListener {
-                    calendarData.onCalendarClickedListener?.onCalendarClicked(year, currentMonth, day)
+                    onCalendarClickedListener?.onCalendarClicked(year, currentMonth, day)
                 }
                 weekContainer.addView(dayView, layoutParams)
                 calendar.add(Calendar.DAY_OF_MONTH, 1)

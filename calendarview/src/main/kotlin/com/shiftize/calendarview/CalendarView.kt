@@ -11,9 +11,13 @@ import android.widget.TextView
 import java.util.*
 
 class CalendarView : LinearLayout {
-    private val calendarListeners = CalendarListeners
-
     private var calendarPanelPager: CalendarPanelPager? = null
+
+    var onCalendarSwipedListener: OnCalendarSwipedListener? = null
+    var onCalendarClickedListener: OnCalendarClickedListener? = null
+        set(value) {
+            calendarPanelPager?.onCalendarClickedListener = value
+        }
 
     private var topText: TextView? = null
     var isTopTextShowed: Boolean = true
@@ -79,7 +83,7 @@ class CalendarView : LinearLayout {
                 val nextYear = calendar.get(Calendar.YEAR)
                 val nextMonth = calendar.get(Calendar.MONTH) + 1
                 topText?.text = "$nextYear / $nextMonth"
-                calendarListeners.onCalendarSwipedListener?.onCalendarSwiped(nextYear, nextMonth)
+                onCalendarSwipedListener?.onCalendarSwiped(nextYear, nextMonth)
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
@@ -137,22 +141,6 @@ class CalendarView : LinearLayout {
         if (nextPos != null) {
             calendarPanelPager?.setCurrentItem(nextPos, true)
         }
-    }
-
-    /**
-     * set OnCalendarSwipedListener
-     * @param listener OnCalendarSwipedListener
-     */
-    fun setOnCalendarSwipedListener(listener: OnCalendarSwipedListener) {
-        calendarListeners.onCalendarSwipedListener = listener
-    }
-
-    /**
-     * set OnCalendarClickedListener
-     * @param listener OnCalendarClickedListener
-     */
-    fun setOnCalendarClickedListener(listener: OnCalendarClickedListener) {
-        calendarListeners.onCalendarClickedListener = listener
     }
 
     interface OnCalendarSwipedListener {

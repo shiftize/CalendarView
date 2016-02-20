@@ -12,6 +12,11 @@ class CalendarPanelPager : ViewPager {
             this.adapter.notifyDataSetChanged()
         }
 
+    var onCalendarClickedListener: CalendarView.OnCalendarClickedListener? = null
+        set(value) {
+            (adapter as CalendarPanelAdapter?)?.onCalendarClickedListener = value
+        }
+
     constructor(context: Context): super(context) {}
 
     fun setUp() {

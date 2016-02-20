@@ -9,6 +9,7 @@ import java.util.*
 
 class CalendarPanelAdapter(val context: Context, val initYear: Int, val initMonth: Int) : PagerAdapter() {
     var agendaList: List<Agenda> = ArrayList()
+    var onCalendarClickedListener: CalendarView.OnCalendarClickedListener? = null
 
     override fun instantiateItem(container: ViewGroup, position: Int): CalendarPanel {
         val calendar = Calendar.getInstance()
@@ -21,6 +22,7 @@ class CalendarPanelAdapter(val context: Context, val initYear: Int, val initMont
         val filteredAgendaList = agendaList.filter { it.year == year
                 && month - 1 <= it.month && it.month <= month + 1}
         calendarPanel.setUp(year, month, filteredAgendaList)
+        calendarPanel.onCalendarClickedListener = onCalendarClickedListener
         container.addView(calendarPanel)
         return calendarPanel
     }
