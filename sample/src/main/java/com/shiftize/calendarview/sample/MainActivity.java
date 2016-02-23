@@ -3,25 +3,18 @@ package com.shiftize.calendarview.sample;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.shiftize.calendarview.Agenda;
-import com.shiftize.calendarview.CalendarPanel;
 import com.shiftize.calendarview.CalendarView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function2;
-import kotlin.jvm.functions.Function3;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("clicked", year + "/" + month + "/" + day);
             }
         });
+
         List<Agenda> agendaList = new ArrayList<>();
         Agenda agenda1 = new Agenda(2016, 2, 3, Color.parseColor("#E74C3C"));
         Agenda agenda2 = new Agenda(2016, 2, 3, Color.parseColor("#3498DB"));

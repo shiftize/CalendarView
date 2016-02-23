@@ -30,6 +30,8 @@ class CalendarPanel : LinearLayout {
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.add(Calendar.DAY_OF_MONTH, 1 - calendar.get(Calendar.DAY_OF_WEEK))
         this.addView(generateBorder())
+        var previousClickedDayView: DayView? = null
+        var previousColor: Int? = null
         (0..WEEKS_IN_A_MONTH - 1).forEach {
             val weekContainer = generateWeekContainer()
             (0..DAYS_IN_A_WEEK - 1).forEach {
@@ -48,6 +50,12 @@ class CalendarPanel : LinearLayout {
                 dayView.agendaList = filteredAgendaList
                 dayView.setBackgroundResource(R.drawable.day_background)
                 dayView.setOnClickListener {
+                    previousClickedDayView?.textHighlightedColor = Color.TRANSPARENT
+                    previousClickedDayView?.textColor = previousColor!!
+                    (it as DayView).textHighlightedColor = Color.parseColor(context.getString(R.color.selected_highlight))
+                    previousColor = it.textColor
+                    it.textColor = Color.WHITE
+                    previousClickedDayView = it
                     onCalendarClickedListener?.onCalendarClicked(year, currentMonth, day)
                 }
                 weekContainer.addView(dayView, layoutParams)

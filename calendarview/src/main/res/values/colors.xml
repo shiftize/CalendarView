@@ -5,4 +5,5 @@
     <color name="saturday_text">#3498DB</color>
     <color name="holiday_text">#E74C3C</color>
     <color name="border_color">#34495E</color>
+    <color name="selected_highlight">#3498DB</color>
 </resources>
