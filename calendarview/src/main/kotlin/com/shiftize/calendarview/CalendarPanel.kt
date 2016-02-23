@@ -11,7 +11,7 @@ import java.util.*
 
 class CalendarPanel : LinearLayout {
     val DAYS_IN_A_WEEK = 7
-    val WEEKS_IN_A_MONTH = 5
+    val WEEKS_IN_A_MONTH = 6
 
     var onCalendarClickedListener: CalendarView.OnCalendarClickedListener? = null
 
@@ -30,12 +30,11 @@ class CalendarPanel : LinearLayout {
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.add(Calendar.DAY_OF_MONTH, 1 - calendar.get(Calendar.DAY_OF_WEEK))
         this.addView(generateBorder())
-        var previousClickedDayView: DayView? = null
-        var previousColor: Int? = null
         (0..WEEKS_IN_A_MONTH - 1).forEach {
             val weekContainer = generateWeekContainer()
             (0..DAYS_IN_A_WEEK - 1).forEach {
                 val dayView = DayView(context)
+                val currentYear = calendar.get(Calendar.YEAR)
                 val currentMonth = calendar.get(Calendar.MONTH) + 1
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
                 val filteredAgendaList = agendaList.filter { it.month == currentMonth && it.day == day }
@@ -50,13 +49,11 @@ class CalendarPanel : LinearLayout {
                 dayView.agendaList = filteredAgendaList
                 dayView.setBackgroundResource(R.drawable.day_background)
                 dayView.setOnClickListener {
-                    previousClickedDayView?.textHighlightedColor = Color.TRANSPARENT
-                    previousClickedDayView?.textColor = previousColor!!
-                    (it as DayView).textHighlightedColor = Color.parseColor(context.getString(R.color.selected_highlight))
-                    previousColor = it.textColor
-                    it.textColor = Color.WHITE
-                    previousClickedDayView = it
-                    onCalendarClickedListener?.onCalendarClicked(year, currentMonth, day)
+                    onCalendarClickedListener?.onCalendarClicked(currentYear, currentMonth, day)
+                }
+                dayView.tag = "$currentYear-$currentMonth-$day"
+                if (currentMonth != month) {
+                    dayView.tag = dayView.tag as String + "-outside"
                 }
                 weekContainer.addView(dayView, layoutParams)
                 calendar.add(Calendar.DAY_OF_MONTH, 1)

@@ -143,6 +143,51 @@ class CalendarView : LinearLayout {
         }
     }
 
+    /**
+     * highlight specific day
+     * @param year specific year
+     * @param month specific month
+     * @param day specific day
+     * @param textColor color specified by Color class
+     * @param backgroundColor color specified by Color class
+     */
+    fun highlight(year: Int, month: Int, day: Int, textColor: Int, backgroundColor: Int) {
+        val dayView = getDayView(year, month, day)
+        dayView?.textHighlightedColor = backgroundColor
+        dayView?.textColor = textColor
+    }
+
+    /**
+     * reset color at specific day
+     * @param year specific year
+     * @param month specific month
+     * @param day specific day
+     */
+    fun resetColor(year: Int, month: Int, day: Int) {
+        val dayView = getDayView(year, month, day)
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month - 1)
+        calendar.set(Calendar.DAY_OF_MONTH, day)
+        dayView?.textColor = when (calendar.get(Calendar.DAY_OF_WEEK)) {
+            Calendar.SATURDAY -> Color.parseColor(context.getString(R.color.saturday_text))
+            Calendar.SUNDAY -> Color.parseColor(context.getString(R.color.holiday_text))
+            else -> Color.parseColor(context.getString(R.color.default_text))
+        }
+        dayView?.textHighlightedColor = Color.TRANSPARENT
+    }
+
+    /**
+     * return specific DayView
+     * @param year specific year
+     * @param month specific month
+     * @param day specific day
+     * @return specific DayView
+     */
+    fun getDayView(year: Int, month: Int, day: Int): DayView? {
+        return findViewWithTag("$year-$month-$day") as DayView?
+    }
+
     interface OnCalendarSwipedListener {
         fun onCalendarSwiped(year: Int, month: Int)
     }

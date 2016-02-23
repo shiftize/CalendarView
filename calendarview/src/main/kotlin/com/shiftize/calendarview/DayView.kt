@@ -59,7 +59,7 @@ class DayView : RelativeLayout {
         dayText = TextView(context)
         dayText?.text = day.toString()
         dayText?.textSize = textSize
-        dayText?.setTextColor(textColor)
+        dayText?.setTextColor(Color.parseColor(context.getString(R.color.default_text)))
         drawable.paint.color = textHighlightedColor
         drawable.shape = OvalShape()
         dayText?.background = drawable

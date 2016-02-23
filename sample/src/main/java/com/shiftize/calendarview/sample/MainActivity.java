@@ -12,11 +12,15 @@ import android.view.MenuItem;
 
 import com.shiftize.calendarview.Agenda;
 import com.shiftize.calendarview.CalendarView;
+import com.shiftize.calendarview.DayView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    int previousYear = 0;
+    int previousMonth = 0;
+    int previousDay = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("swiped", year + "/" + month);
             }
         });
+
         calendarView.setOnCalendarClickedListener(new CalendarView.OnCalendarClickedListener() {
             @Override
             public void onCalendarClicked(int year, int month, int day) {
                 Log.i("clicked", year + "/" + month + "/" + day);
+                calendarView.resetColor(previousYear, previousMonth, previousDay);
+                calendarView.highlight(year, month, day, Color.WHITE, Color.parseColor("#3498DB"));
+                previousYear = year;
+                previousMonth = month;
+                previousDay = day;
             }
         });
 
