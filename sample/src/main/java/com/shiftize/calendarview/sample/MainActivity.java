@@ -12,7 +12,6 @@ import android.view.MenuItem;
 
 import com.shiftize.calendarview.Agenda;
 import com.shiftize.calendarview.CalendarView;
-import com.shiftize.calendarview.DayView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
                 previousYear = year;
                 previousMonth = month;
                 previousDay = day;
+
+                if (calendarView.getCurrentYear() < year) {
+                    calendarView.moveToNext();
+                } else if (calendarView.getCurrentYear() > year) {
+                    calendarView.moveToPrevious();
+                } else if (calendarView.getCurrentMonth() < month) {
+                    calendarView.moveToNext();
+                } else if (calendarView.getCurrentMonth() > month) {
+                    calendarView.moveToPrevious();
+                }
             }
         });
 

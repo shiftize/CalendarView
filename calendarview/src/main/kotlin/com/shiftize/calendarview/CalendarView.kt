@@ -144,6 +144,20 @@ class CalendarView : LinearLayout {
     }
 
     /**
+     * move calendar to the next page
+     */
+    fun moveToNext() {
+        calendarPanelPager?.setCurrentItem(calendarPanelPager!!.currentItem + 1, true)
+    }
+
+    /**
+     * move calendar to the previous page
+     */
+    fun moveToPrevious() {
+        calendarPanelPager?.setCurrentItem(calendarPanelPager!!.currentItem - 1, true)
+    }
+
+    /**
      * highlight specific day
      * @param year specific year
      * @param month specific month
@@ -186,6 +200,26 @@ class CalendarView : LinearLayout {
      */
     fun getDayView(year: Int, month: Int, day: Int): DayView? {
         return findViewWithTag("$year-$month-$day") as DayView?
+    }
+
+    fun getCurrentYear(): Int {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, initYear)
+        calendar.set(Calendar.MONTH, initMonth - 1)
+        calendar.add(Calendar.MONTH, getPageDiff())
+        return calendar.get(Calendar.YEAR)
+    }
+
+    fun getCurrentMonth(): Int {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, initYear)
+        calendar.set(Calendar.MONTH, initMonth - 1)
+        calendar.add(Calendar.MONTH, getPageDiff())
+        return calendar.get(Calendar.MONTH) + 1
+    }
+
+    private fun getPageDiff(): Int {
+        return calendarPanelPager!!.currentItem - calendarPanelPager!!.getCenterPosition()
     }
 
     interface OnCalendarSwipedListener {
