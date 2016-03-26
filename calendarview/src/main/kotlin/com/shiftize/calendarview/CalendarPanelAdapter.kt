@@ -19,8 +19,9 @@ class CalendarPanelAdapter(val context: Context, val initYear: Int, val initMont
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         val calendarPanel = CalendarPanel(context)
-        val filteredAgendaList = agendaList.filter { it.year == year
-                && month - 1 <= it.month && it.month <= month + 1
+        calendarPanel.tag = position
+        val filteredAgendaList = agendaList.filter {
+            it.year == year && month - 1 <= it.month && it.month <= month + 1
         }
         calendarPanel.setUp(year, month, filteredAgendaList)
         calendarPanel.onCalendarClickedListener = onCalendarClickedListener

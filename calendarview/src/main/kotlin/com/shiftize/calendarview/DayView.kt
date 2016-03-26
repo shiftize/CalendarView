@@ -67,8 +67,10 @@ class DayView : RelativeLayout {
             dayText?.width = dayText!!.height
         }
         dayText?.gravity = Gravity.CENTER
+        dayText?.setPadding(3, 3, 3, 3)
         val textLayoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         textLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
+        textLayoutParams.topMargin = 6
         this.addView(dayText, textLayoutParams)
 
         dotContainer = LinearLayout(context)

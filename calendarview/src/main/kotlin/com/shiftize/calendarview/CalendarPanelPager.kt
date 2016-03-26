@@ -9,7 +9,8 @@ class CalendarPanelPager : ViewPager {
     var agendaList: List<Agenda> = ArrayList()
         set(value) {
             (this.adapter as CalendarPanelAdapter).agendaList = value
-            this.adapter.notifyDataSetChanged()
+            val calendarPanel = findViewWithTag(currentItem) as CalendarPanel?
+            calendarPanel?.update(value)
         }
 
     var onCalendarClickedListener: CalendarView.OnCalendarClickedListener? = null

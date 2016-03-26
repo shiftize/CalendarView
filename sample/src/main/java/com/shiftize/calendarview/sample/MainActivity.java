@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.shiftize.calendarview.Agenda;
 import com.shiftize.calendarview.CalendarView;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        List<Agenda> agendaList = new ArrayList<>();
+        final List<Agenda> agendaList = new ArrayList<>();
         Agenda agenda1 = new Agenda(2016, 2, 3, Color.parseColor("#E74C3C"));
         Agenda agenda2 = new Agenda(2016, 2, 3, Color.parseColor("#3498DB"));
         Agenda agenda3 = new Agenda(2016, 2, 5, Color.parseColor("#1ABC9D"));
@@ -73,11 +74,21 @@ public class MainActivity extends AppCompatActivity {
         agendaList.add(agenda6);
         calendarView.setAgendaList(agendaList);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button moveToButton = (Button) findViewById(R.id.moveToButton);
+        moveToButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calendarView.moveTo(2017, 3);
+            }
+        });
+
+        Button addAgendaButton = (Button) findViewById(R.id.addAgendaButton);
+        addAgendaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Agenda agenda = new Agenda(2016, 2, 8, Color.parseColor("#1ABC9D"));
+                agendaList.add(agenda);
+                calendarView.setAgendaList(agendaList);
             }
         });
     }

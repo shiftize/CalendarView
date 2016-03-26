@@ -19,7 +19,7 @@ class DotView : View {
             paint.isAntiAlias = true
             paint.color = agenda.color
             canvas.drawCircle(width.toFloat() / (count + 1) * (index + 1),
-                height.toFloat() / 2, (width + height).toFloat() / 32, paint)
+                5 * height.toFloat() / 6, (width + height).toFloat() / 32, paint)
         }
     }
 }
