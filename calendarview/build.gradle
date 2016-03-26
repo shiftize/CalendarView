@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -20,6 +21,10 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -39,4 +44,13 @@ buildscript {
 }
 repositories {
     mavenCentral()
+}
+
+publish {
+    userOrg = 'shiftize'
+    groupId = 'com.shiftize.calendarview'
+    artifactId = 'calendarview'
+    publishVersion = "0.1.0"
+    desc = 'CalendarView library for Android written in Kotlin'
+    website = 'https://github.com/shiftize/CalendarView'
 }
