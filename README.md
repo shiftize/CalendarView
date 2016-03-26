@@ -6,6 +6,11 @@ A calendar library used in Shiftize for Android Application
 </p>
 
 # Usage
+In your Gradle.
+```gradle
+compile 'com.shiftize:calendarview:0.1.0'
+```
+
 In your Java codes.
 ```java
 CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
