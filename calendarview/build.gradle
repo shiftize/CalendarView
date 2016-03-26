@@ -48,7 +48,7 @@ repositories {
 
 publish {
     userOrg = 'shiftize'
-    groupId = 'com.shiftize.calendarview'
+    groupId = 'com.shiftize'
     artifactId = 'calendarview'
     publishVersion = "0.1.0"
     desc = 'CalendarView library for Android written in Kotlin'
